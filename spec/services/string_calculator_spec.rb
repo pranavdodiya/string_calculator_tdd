@@ -21,5 +21,10 @@ RSpec.describe StringCalculator do
       numbers = (1..1000).to_a.join(",")
       expect(StringCalculator.new.add(numbers)).to eq(500500)
     end
+
+		# Handles new lines between numbers in addition to commas
+		it 'handles new lines between numbers' do
+			expect(StringCalculator.new.add("1\n2,3")).to eq(6)
+		end
   end
 end
