@@ -2,13 +2,19 @@ class StringCalculator
   def add(numbers)
     return 0 if numbers.empty?
 
-    # Adds numbers from a string, supports custom delimiter and default comma or newline
     delimiter = ",|\n"
-    if numbers.start_with?("//")
-      delimiter = Regexp.escape(numbers[2])
+    
+    # Check if a custom delimiter is specified in the format //[*] or //[*][*]
+    if numbers.start_with?("//[")
+      delimiter = numbers.match(%r{//\[(.*?)\]\n})[1] # Extract delimiter from the string
+      delimiter = Regexp.escape(delimiter) # Escape any special characters in the delimiter
+      numbers = numbers.split("\n", 2).last
+    elsif numbers.start_with?("//")
+      delimiter = Regexp.escape(numbers[2]) # Single character delimiter
       numbers = numbers.split("\n", 2).last
     end
 
+    # Use the delimiter to split the numbers string
     nums = numbers.split(/#{delimiter}/).map(&:to_i)
 
     # Reject numbers greater than 1000
