@@ -10,6 +10,9 @@ class StringCalculator
     end
 
     nums = numbers.split(/#{delimiter}/).map(&:to_i)
+
+    # Reject numbers greater than 1000
+    nums = nums.reject { |n| n > 1000 }
     
     # Check for negative numbers
     negatives = nums.select { |n| n < 0 }

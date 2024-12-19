@@ -36,5 +36,12 @@ RSpec.describe StringCalculator do
 		it 'raises an exception for negative numbers' do
 			expect { StringCalculator.new.add("1,-2,3,-4") }.to raise_error("negative numbers not allowed: -2, -4")
 		end
+
+    # Ignores numbers greater than 1000 when calculating the sum
+		it 'ignores numbers greater than 1000' do
+      expect(StringCalculator.new.add("2,1001")).to eq(2)
+      expect(StringCalculator.new.add("1000,1001,2")).to eq(1002)
+      expect(StringCalculator.new.add("1001,1002,1003")).to eq(0)
+    end
   end
 end
